@@ -75,7 +75,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 	 * @return string
 	 */
 	public function getHTML( $cur_value = "", $input_name = "", $is_mandatory, $is_disabled, Array $other_args ) {
-		global $sfgFieldNum, $wgUser;
+		global $sfgFieldNum, $wgUser, $wgPageFormsShowOnSelect;
 
 		// shortcut to the SelectField object
 		$selectField = $this->mSelectField;
@@ -128,17 +128,29 @@ class SemanticFormsSelectInput extends PFFormInput {
 		if ( array_key_exists( "class", $other_args ) ) {
 			$classes[] = $other_args['class'];
 		}
-		if ( $classes ) {
-			$cstr = implode( " ", $classes );
-			$extraatt .= " class=\"$cstr\"";
-		}
 
 		$inname = $input_name;
 		if ( $is_list ) {
 			$inname .= '[]';
 		}
 
-		// TODO Use Html::
+		$input_id = "input_$sfgFieldNum";
+
+		if ( array_key_exists( 'show on select', $other_args ) ) {
+			$classes[] = "pfShowIfSelected";
+			foreach ( $other_args['show on select'] as $div_id => $options ) {
+				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$input_id][] = array( $options, $div_id );
+				} else {
+					$wgPageFormsShowOnSelect[$input_id] = array( array( $options, $div_id ) );
+				}
+			}
+		}
+
+		if ( $classes ) {
+			$cstr = implode( " ", $classes );
+			$extraatt .= " class=\"$cstr\"";
+		}
 
 		$spanextra = $is_mandatory ? 'mandatoryFieldSpan' : '';
 		$is_single_select = (!$is_list) ? 'select-sfs-single' : '' ;

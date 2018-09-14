@@ -75,7 +75,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 	 * @return string
 	 */
 	public function getHTML( $cur_value = "", $input_name = "", $is_mandatory, $is_disabled, Array $other_args ) {
-		global $sfgFieldNum, $wgUser, $wgPageFormsShowOnSelect;
+		global $wgUser, $wgPageFormsShowOnSelect, $wgPageFormsFieldNum;
 
 		// shortcut to the SelectField object
 		$selectField = $this->mSelectField;
@@ -134,7 +134,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 			$inname .= '[]';
 		}
 
-		$input_id = "input_$sfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$classes[] = "pfShowIfSelected";
@@ -154,7 +154,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 
 		$spanextra = $is_mandatory ? 'mandatoryFieldSpan' : '';
 		$is_single_select = (!$is_list) ? 'select-sfs-single' : '' ;
-		$ret = "<span class=\"inputSpan select-sfs $is_single_select $spanextra\"><select name='$inname' id='input_$sfgFieldNum' $extraatt>";
+		$ret = "<span class=\"inputSpan select-sfs $is_single_select $spanextra\"><select name='$inname' id='input_$wgPageFormsFieldNum' $extraatt>";
 
 		$curvalues = null;
 		if ( $cur_value ) {
@@ -187,7 +187,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 		}
 
 		$ret .= "</select></span>";
-		$ret .= "<span id=\"info_$sfgFieldNum\" class=\"errorMessage\"></span>";
+		$ret .= "<span id=\"info_$wgPageFormsFieldNum\" class=\"errorMessage\"></span>";
 
 		if ( $other_args["is_list"] ) {
 			$hiddenname = $input_name . '[is_list]';

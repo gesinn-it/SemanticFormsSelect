@@ -99,7 +99,6 @@ function SFSelect_setDependentValues(nameobj, fobj, values) {
         } else {
             for (var i = 0; i < values.length; i++) {
                 element.options[i] = new Option(values[i]);
-
                 if (jQuery.inArray(values[i], selectedValues) != -1) {
                     element.options[i].selected = true;
                     newselected.push(values[i]);
@@ -129,7 +128,9 @@ function SFSelect_processNameValues(values) {
     var regex = " (";
 
     for (var i = 0; i < values.length; i++) {
-
+        // strip HTML (e.g. introduced by new list format, https://gist.github.com/s7eph4n/277e7804fe04954df7d1e15ae874b0d0)
+        values[i] = jQuery(values[i]).text();
+        
         var postval = values[i].split(regex);
         if (postval.length < 2) {
             namevalues[i] = [values[i], values[i]];

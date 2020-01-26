@@ -60,7 +60,7 @@ class ApiSemanticFormsSelectRequestProcessor {
 		}
 
 		$this->parser->firstCallInit();
-		$json = array();
+		$json = [];
 
 		if ( isset( $parameters['approach'] ) && $parameters['approach'] == 'smw' ) {
 			$json = $this->doProcessQueryFor( $parameters['query'], $parameters['sep'] );
@@ -75,11 +75,7 @@ class ApiSemanticFormsSelectRequestProcessor {
 
 	private function doProcessQueryFor( $querystr, $sep = "," ) {
 
-		$querystr = str_replace(
-			[ "&lt;", "&gt;", "sep=;" ],
-			[ "<", ">", "sep={$sep};" ],
-			$querystr
-		);
+		$querystr = str_replace( [ "&lt;", "&gt;", "sep=;" ], [ "<", ">", "sep={$sep};" ], $querystr );
 
 		$rawparams = explode( ";", $querystr );
 		$f = str_replace( ";", "|", $rawparams[0] );
@@ -90,12 +86,14 @@ class ApiSemanticFormsSelectRequestProcessor {
 			error_log( implode( "|", $rawparams ) );
 		}
 
-		
-		list( $query, $params ) = QueryProcessor::getQueryAndParamsFromFunctionParams( $rawparams, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY, false );
-			
+
+		list( $query, $params ) =
+			QueryProcessor::getQueryAndParamsFromFunctionParams( $rawparams, SMW_OUTPUT_WIKI,
+				QueryProcessor::INLINE_QUERY, false );
+
 		$result = QueryProcessor::getResultFromQuery( $query, $params, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY );
-		
-		
+
+
 		$values = $this->getFormattedValuesFrom( $sep, $result );
 
 		return json_encode( [
@@ -106,11 +104,7 @@ class ApiSemanticFormsSelectRequestProcessor {
 
 	private function doProcessFunctionFor( $query, $sep = "," ) {
 
-		$query = str_replace(
-			array( "&lt;", "&gt;", "sep=;" ),
-			array( "<", ">", "sep={$sep};" ),
-			$query
-		);
+		$query = str_replace( [ "&lt;", "&gt;", "sep=;" ], [ "<", ">", "sep={$sep};" ], $query );
 
 		$f = str_replace( ";", "|", $query );
 
@@ -118,21 +112,18 @@ class ApiSemanticFormsSelectRequestProcessor {
 			error_log( $f );
 		}
 
-		$values = $this->getFormattedValuesFrom(
-			$sep,
-			$this->parser->replaceVariables( $f )
-		);
+		$values = $this->getFormattedValuesFrom( $sep, $this->parser->replaceVariables( $f ) );
 
-		return json_encode( array(
+		return json_encode( [
 			"values" => $values,
 			"count"  => count( $values )
-		) );
+		] );
 	}
 
 	private function getFormattedValuesFrom( $sep, $values ) {
 
 		if ( strpos( $values, $sep ) === false ) {
-			return array( $values );
+			return [ $values ];
 		}
 
 		$values = explode( $sep, $values );

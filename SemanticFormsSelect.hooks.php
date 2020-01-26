@@ -16,13 +16,13 @@ class Hooks {
 	 * @param $parser Parser
 	 * @return bool
 	 */
-	public static function onSemanticFormsSelectSetup ( & $parser ) {
+	public static function onSemanticFormsSelectSetup( & $parser ) {
 
 		if ( !defined( 'PF_VERSION' ) ) {
 			die( '<b>Error:</b><a href="https://github.com/SemanticMediaWiki/SemanticFormsSelect/">Semantic Forms Select</a> requires the <a href="https://www.mediawiki.org/wiki/Extension:PageForms">Page Forms</a> extension. Please install and activate this extension first.' );
 		}
 
-		if ( isset( $GLOBALS['wgPageFormsFormPrinter'] )) {
+		if ( isset( $GLOBALS['wgPageFormsFormPrinter'] ) ) {
 			$GLOBALS['wgPageFormsFormPrinter']->registerInputType( '\SFS\SemanticFormsSelectInput' );
 		}
 

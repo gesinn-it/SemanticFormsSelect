@@ -17,7 +17,7 @@ class Output {
 	/**
 	 * @var array
 	 */
-	private static $headItems = array();
+	private static $headItems = [];
 
 	/**
 	 * Add an array of SF_Select field parameters as defined in Page Form's field tag.
@@ -35,11 +35,11 @@ class Output {
 	 *
 	 */
 	public static function commitToParserOutput() {
-		global $wgOut;	# is there a better way to get $output/$parser without using a global? (testability!)
+		global $wgOut;    # is there a better way to get $output/$parser without using a global? (testability!)
 
 		// to be used in JS like:
 		// var SFSelect_fobjs = $.parseJSON( mw.config.get( 'sf_select' ) );
-		$wgOut->addJsConfigVars('sf_select', json_encode( self::$headItems ));
+		$wgOut->addJsConfigVars( 'sf_select', json_encode( self::$headItems ) );
 
 		//self::$resourceModules = array();
 		//self::$headItems = array();

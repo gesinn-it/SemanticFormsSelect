@@ -21,7 +21,7 @@ class SelectField {
 	private $mValues = null;
 	private $mHasStaticValues = false;
 
-	private $mData = array();    # array with all parameters
+	private $mData = [];    # array with all parameters
 	private $mQuery = "";
 	private $mFunction = "";
 	private $mSelectIsMultiple = false;
@@ -59,7 +59,7 @@ class SelectField {
 
 	public function setQuery( $other_args ) {
 		$query = $other_args["query"];
-		$query = str_replace( array( "~", "(", ")" ), array( "=", "[", "]" ), $query );
+		$query = str_replace( [ "~", "(", ")" ], [ "=", "[", "]" ], $query );
 
 		//$this->mSelectField["query"] = $query;
 		$this->mQuery = $query;
@@ -69,9 +69,12 @@ class SelectField {
 		if ( strpos( $query, '@@@@' ) === false ) {
 			$rawparams = explode( ";", $query );
 
-            list( $query, $params ) = QueryProcessor::getQueryAndParamsFromFunctionParams( $rawparams, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY, false );
-            $this->mValues = QueryProcessor::getResultFromQuery( $query, $params, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY );
-            
+			list( $query, $params ) =
+				QueryProcessor::getQueryAndParamsFromFunctionParams( $rawparams, SMW_OUTPUT_WIKI,
+					QueryProcessor::INLINE_QUERY, false );
+			$this->mValues =
+				QueryProcessor::getResultFromQuery( $query, $params, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY );
+
 			$this->setHasStaticValues( true );
 		}
 	}
@@ -81,7 +84,7 @@ class SelectField {
 
 		$function = $other_args["function"];
 		$function = '{{#' . $function . '}}';
-		$function = str_replace( array( "~", "(", ")" ), array( "=", "[", "]" ), $function );
+		$function = str_replace( [ "~", "(", ")" ], [ "=", "[", "]" ], $function );
 
 		//$this->mSelectField["function"] = $function;
 		$this->mFunction = $function;

@@ -23,7 +23,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 	 *
 	 * @var array
 	 */
-	private static $data = array();
+	private static $data = [];
 
 	private $mSelectField;
 
@@ -49,9 +49,9 @@ class SemanticFormsSelectInput extends PFFormInput {
 		 * "mw.loader.state({"ext.sf_select.scriptselect":"loading"});"
 		 */
 
-		return array(
+		return [
 			'ext.sf_select.scriptselect'
-		);
+		];
 	}
 
 	/**
@@ -121,7 +121,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 			$extraatt .= " size=\"{$other_args['size']}\"";
 		}
 
-		$classes = array();
+		$classes = [];
 		if ( $is_mandatory ) {
 			$classes[] = "mandatoryField";
 		}
@@ -140,9 +140,9 @@ class SemanticFormsSelectInput extends PFFormInput {
 			$classes[] = "pfShowIfSelected";
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$input_id][] = array( $options, $div_id );
+					$wgPageFormsShowOnSelect[$input_id][] = [ $options, $div_id ];
 				} else {
-					$wgPageFormsShowOnSelect[$input_id] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$input_id] = [ [ $options, $div_id ] ];
 				}
 			}
 		}
@@ -153,8 +153,9 @@ class SemanticFormsSelectInput extends PFFormInput {
 		}
 
 		$spanextra = $is_mandatory ? 'mandatoryFieldSpan' : '';
-		$is_single_select = (!$is_list) ? 'select-sfs-single' : '' ;
-		$ret = "<span class=\"inputSpan select-sfs $is_single_select $spanextra\"><select name='$inname' id='input_$wgPageFormsFieldNum' $extraatt>";
+		$is_single_select = ( !$is_list ) ? 'select-sfs-single' : '';
+		$ret =
+			"<span class=\"inputSpan select-sfs $is_single_select $spanextra\"><select name='$inname' id='input_$wgPageFormsFieldNum' $extraatt>";
 
 		$curvalues = null;
 		if ( $cur_value ) {
@@ -168,7 +169,7 @@ class SemanticFormsSelectInput extends PFFormInput {
 			}
 
 		} else {
-			$curvalues = array();
+			$curvalues = [];
 		}
 
 		// TODO handle empty value case.

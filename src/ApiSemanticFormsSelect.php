@@ -33,9 +33,8 @@ class ApiSemanticFormsSelect extends ApiBase {
 		$apiRequestProcessor = new \SFS\ApiSemanticFormsSelectRequestProcessor( $parser );
 		$apiRequestProcessor->setDebugFlag( $GLOBALS['wgSF_Select_debug'] );
 
-		$resultValues = $apiRequestProcessor->getJsonDecodedResultValuesForRequestParameters(
-			$this->extractRequestParams()
-		);
+		$resultValues =
+			$apiRequestProcessor->getJsonDecodedResultValuesForRequestParameters( $this->extractRequestParams() );
 
 		$result = $this->getResult();
 		$result->setIndexedTagName( $resultValues->values, 'value' );
@@ -49,39 +48,39 @@ class ApiSemanticFormsSelect extends ApiBase {
 	 * @see ApiBase::getAllowedParams
 	 */
 	public function getAllowedParams() {
-		return array(
-			'approach' => array(
-				ApiBase::PARAM_TYPE => 'string',
+		return [
+			'approach' => [
+				ApiBase::PARAM_TYPE     => 'string',
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'query' => array(
-				ApiBase::PARAM_TYPE => 'string',
+			],
+			'query'    => [
+				ApiBase::PARAM_TYPE     => 'string',
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'sep' => array(
-				ApiBase::PARAM_TYPE => 'string',
+			],
+			'sep'      => [
+				ApiBase::PARAM_TYPE     => 'string',
 				ApiBase::PARAM_REQUIRED => false
-			)
-		);
+			]
+		];
 	}
 
 	/**
 	 * @see ApiBase::getDescription
 	 */
 	public function getDescription() {
-		return array(
+		return [
 			'API for providing SemanticFormsSelect values'
-		);
+		];
 	}
 
 	/**
 	 * @see ApiBase::getParamDescription
 	 */
 	public function getParamDescription() {
-		return array(
+		return [
 			'approach' => 'The actual approach: function or smw',
-			'query' => 'The query of the former'
-		);
+			'query'    => 'The query of the former'
+		];
 	}
 
 	/**

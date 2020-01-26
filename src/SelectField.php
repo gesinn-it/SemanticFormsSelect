@@ -67,13 +67,11 @@ class SelectField {
 
 		// unparametrized query
 		if ( strpos( $query, '@@@@' ) === false ) {
-			$params = explode( ";", $query );
+			$rawparams = explode( ";", $query );
 
-			// there is no need to run the parser, $query has been parsed already
-			//$params[0] = $wgParser->replaceVariables( $params[0] );
-
-			$this->mValues = QueryProcessor::getResultFromFunctionParams( $params, SMW_OUTPUT_WIKI );
-
+            list( $query, $params ) = QueryProcessor::getQueryAndParamsFromFunctionParams( $rawparams, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY, false );
+            $this->mValues = QueryProcessor::getResultFromQuery( $query, $params, SMW_OUTPUT_WIKI, QueryProcessor::INLINE_QUERY );
+            
 			$this->setHasStaticValues( true );
 		}
 	}

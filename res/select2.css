@@ -1,7 +1,7 @@
 span.select-sfs {
 	margin-bottom: 11px;
 	position: relative;
-	display: inline-block;
+	display: block;
 	min-width: 210px;
 }
 
